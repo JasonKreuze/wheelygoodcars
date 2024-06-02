@@ -20,7 +20,7 @@
                     <th>Image</th>
                     <th>Sold At</th>
                     <th>Views</th>
-                    <th>Remove</th> <!-- New column for delete button -->
+                    <th>Remove</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -46,11 +46,15 @@
                         <td>{{ $car->sold_at ? $car->sold_at->format('M d, Y') : 'Not Sold' }}</td>
                         <td>{{ $car->views }}</td>
                         <td>
-                            <form action="{{ route('cars.destroy', $car->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this car?')">Delete</button>
-                            </form>
+                            @if(\Illuminate\Support\Facades\Auth::id() == $car->user_id)
+                                <form action="{{ route('cars.destroy', $car->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this car?')">Delete</button>
+                                </form>
+                            @else
+                                Not your offer!
+                            @endif
                         </td>
                     </tr>
                 @endforeach
