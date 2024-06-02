@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Car;
+use App\Http\Controllers\CarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $cars = Car::orderBy('production_year')->get();
+    return view('welcome', compact('cars'));
+//    return view('welcome');
 })->name('home');
 
 Route::middleware('auth')->group(function () {
-    //
+    Route::resource('cars', CarController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -20,3 +20,12 @@ $font-family-sans-serif: 'Open Sans', sans-serif;
     justify-content: center;
     align-items: center;
 }
+
+.dodgerblue{
+    background-color: dodgerblue;
+}
+
+.no-focus:focus{
+    border: none;
+    outline: none;
+}
