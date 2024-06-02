@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,11 +12,13 @@ class CarController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() // USING INDEX FUNCTION FOR THE USERS OWN OFFERS!
     {
-        $cars = Car::orderBy('production_year')->get();
-        return view('welcome', compact('cars'));
+        $user = User::findOrFail(Auth::id());
+        $cars = $user->cars()->orderBy('production_year')->get();
+        return view('cars.index', compact('cars'));
     }
+
 
     /**
      * Show the form for creating a new resource.

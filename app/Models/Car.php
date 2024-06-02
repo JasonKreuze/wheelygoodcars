@@ -20,4 +20,9 @@ class Car extends Model
         'production_year',
         'color',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
